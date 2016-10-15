@@ -12,5 +12,5 @@ do
 done
 
 grep -H '[.]*' $(find $1 -name '*.rev') > $1/all_reverals.rev
-grep -H '[.]*' $(find $1 -name '*[a-zA-Z].dat') > $1/all_good_numbers.data
-grep -H '[.]*' $(find $1 -name '*[0-9].dat') > $1/all_body_size.data
+grep -H '[.]*' $(find $1 -name '*[a-zA-Z].dat') > $1/all_good_numbers.dat
+grep -H '[.]*' $(find $1 -name '*[0-9].dat') > $1/all_body_size.dat
