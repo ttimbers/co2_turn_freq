@@ -55,30 +55,39 @@ main <- function(){
   turns_min$tpm <- (turns_min$turns / turns_min$count) * 3
   
   # create summarised data frame to plot mean turns/min for each time bin
-  turns_min <- turns_min %>% 
+  turns_min_agg <- turns_min %>% 
     group_by(strain, interval) %>% 
     summarise(mean_tpm = median(tpm),
               sd_tpm = sd(tpm),
               se_tpm = sd(tpm) / sqrt(n()),
               ci_tpm = (sd(tpm) / sqrt(n()) * 1.96)) 
   
-  turns_min$interval <- as.numeric(str_extract(turns_min$interval, "[1-9]{1}[0-9]+"))
-  turns_min$interval[is.na(turns_min$interval)] <- 300
-  turns_min$interval <- turns_min$interval + 10 #set to mid of time bin
+  turns_min_agg$interval <- as.numeric(str_extract(turns_min_agg$interval, "[1-9]{1}[0-9]+"))
+  turns_min_agg$interval[is.na(turns_min_agg$interval)] <- 300
+  turns_min_agg$interval <- turns_min_agg$interval + 10 #set to mid of time bin
   
   # make vis and write to file
-  ha_plot <- ggplot(turns_min, aes(y = mean_tpm, x = interval, colour = strain)) + 
+  ha_plot <- ggplot(turns_min_agg, aes(y = mean_tpm, x = interval, colour = strain)) + 
     geom_errorbar(aes(ymin = mean_tpm - ci_tpm, ymax = mean_tpm + ci_tpm)) +
     geom_line(aes(group = strain)) + 
     geom_point() +
     labs(x="Time", y="High amplitude turns/minute") 
   
   output_ha_plot_name <- paste0(output_file_prefix, "_ha_plot.pdf")
-  ggsave(output_ha_plot_name, ha_plot, height = 3, width = 4)
+  ggsave(output_ha_plot_name, ha_plot, height = 3, width = 5)
   
   # do stats and write to file
+  turns_min$interval <- as.numeric(str_extract(turns_min$interval, "[1-9]{1}[0-9]+"))
+  turns_min$interval[is.na(turns_min$interval)] <- 300
+  turns_min$interval <- turns_min$interval + 10 #set to mid of time bin
   
+  # convert chr to factor to do stats
+  turns_min$interval <- as.factor(turns_min$interval)
+  turns_min$plate <- as.factor(turns_min$plate)
+  turns_min$strain <- as.factor(turns_min$strain)
   
+  repeated_measures_anova <- aov(tpm ~ strain + Error(interval / strain), data = turns_min)
+  print(summary(repeated_measures_anova))
 }
 
 # Detects high-amplitude (HA) turns (a C. elegans response to CO2)
