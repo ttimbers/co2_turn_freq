@@ -16,9 +16,15 @@ results/final_ha_plot.pdf: src/analyze_turns.R data/all_body_size_parsed.dat dat
 	if [ ! -d "results/" ]; then mkdir results; fi;
 	Rscript src/analyze_turns.R data/all_body_size_parsed.dat data/all_good_numbers_parsed.dat results/final
 
+results/final_length_plot.pdf: src/quick_body_size.R data/all_body_size_parsed.dat
+		if [ ! -d "results/" ]; then mkdir results; fi;
+		Rscript src/analyze_turns.R data/all_body_size_parsed.dat results/final
+
+
 clean:
 	rm -f data/all_reverals.rev data/all_good_numbers.dat data/all_body_size.dat
 	rm -f data/all_reverals_parsed.rev
 	rm -f data/all_good_numbers_parsed.dat
 	rm -f data/all_body_size_parsed.dat
 	rm -f results/final_ha_plot.pdf
+	rm -f results/final_length_plot.pdf

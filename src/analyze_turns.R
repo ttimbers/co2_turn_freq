@@ -57,7 +57,7 @@ main <- function(){
   # create summarised data frame to plot mean turns/min for each time bin
   turns_min_agg <- turns_min %>% 
     group_by(strain, interval) %>% 
-    summarise(mean_tpm = median(tpm),
+    summarise(mean_tpm = mean(tpm),
               sd_tpm = sd(tpm),
               se_tpm = sd(tpm) / sqrt(n()),
               ci_tpm = (sd(tpm) / sqrt(n()) * 1.96)) 
