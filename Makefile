@@ -1,4 +1,4 @@
-all: data/all_reverals_parsed.rev data/all_good_numbers_parsed.dat data/all_all_body_size_parsed.dat
+all: data/all_reverals_parsed.rev data/all_good_numbers_parsed.dat data/all_body_size_parsed.dat
 
 data/all_reverals.rev data/all_good_numbers.dat data/all_body_size.dat: src/run_chore.sh
 	bash src/run_chore.sh data
