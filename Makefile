@@ -1,4 +1,4 @@
-all: results/final_ha_plot.pdf
+all: results/final_ha_plot.pdf results/final_length_plot.pdf
 
 data/all_reverals.rev data/all_good_numbers.dat data/all_body_size.dat: src/run_chore.sh
 	bash src/run_chore.sh data
