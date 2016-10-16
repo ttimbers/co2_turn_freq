@@ -8,8 +8,8 @@ library(stringr)
 
 # get command args
 args <- commandArgs(trailingOnly = TRUE)
-body_size_file <- args[1] #"data/all_body_size_parsed.dat"
-good_number_file <- args[2] "data/all_good_numbers_parsed.dat"
+body_size_file <- args[1] 
+good_number_file <- args[2]
 output_file_prefix <- args[3] 
 
 main <- function(){
