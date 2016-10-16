@@ -31,3 +31,5 @@ main <- function(){
   
   print(summary(aov(mean_length ~ strain, length_data)))
 }
+
+main()

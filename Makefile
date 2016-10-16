@@ -18,7 +18,7 @@ results/final_ha_plot.pdf: src/analyze_turns.R data/all_body_size_parsed.dat dat
 
 results/final_length_plot.pdf: src/quick_body_size.R data/all_body_size_parsed.dat
 		if [ ! -d "results/" ]; then mkdir results; fi;
-		Rscript src/analyze_turns.R data/all_body_size_parsed.dat results/final
+		Rscript src/quick_body_size.R data/all_body_size_parsed.dat results/final
 
 
 clean:
